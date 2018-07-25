@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pos.mapper.MenuMapper">
+	<select id="getMenu" parameterType="java.lang.String" resultType="com.pos.service.MenuVO">
+		select * from menu where name=#{name}
+	</select>
+	
+	<select id="getMenuList" resultType="com.pos.service.MenuVO">
+		select * from menu order by mNum asc
+	</select>
+	
+	<select id="getMenuCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+		 select max(substr(mNum,2,3)) from menu where substr(mNum,1,1)=#{mNum}
+	</select>
+	
+	<insert id="insertMenu" parameterType="com.pos.service.MenuVO">
+		insert into menu values(#{mNum},#{name},#{price})
+	</insert>
+	<delete id="deleteMenu" parameterType="java.lang.String">
+		delete from menu where mNum=#{mNum}
+	</delete>
+	<update id="updateMenu" parameterType="com.pos.service.MenuVO">
+		update menu set
+		name =#{name},
+		price =#{price}
+		where mNum =#{mNum}
+	</update>
+</mapper>
